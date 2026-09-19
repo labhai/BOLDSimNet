@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite the archived BOLDSimNet preprint below.
+title: BOLDSimNet
+type: software
+authors:
+  - given-names: Boseong
+    family-names: Kim
+version: 0.1.0
+license: MIT
+repository-code: https://github.com/labhai/BOLDSimNet
+keywords:
+  - brain networks
+  - graph similarity
+  - multivariate transfer entropy
+preferred-citation:
+  type: article
+  title: >-
+    BOLDSimNet: Examining Brain Network Similarity between Task and
+    Resting-State fMRI
+  authors:
+    - given-names: Boseong
+      family-names: Kim
+    - given-names: Debashis Das
+      family-names: Chakladar
+    - given-names: Haejun
+      family-names: Chung
+    - given-names: Ikbeom
+      family-names: Jang
+  journal: arXiv
+  year: 2025
+  doi: 10.48550/arXiv.2504.01274
+  identifiers:
+    - type: url
+      value: https://arxiv.org/abs/2504.01274
+      description: arXiv preprint record
