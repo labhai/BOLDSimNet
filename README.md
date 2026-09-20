@@ -62,22 +62,6 @@ The supplied label file follows the Schaefer-100 parcel order and Yeo-7
 network assignment used in the manuscript. Other atlases require labels in
 their own adjacency-matrix order.
 
-## Input and result
-
-- A node is active when it has at least one exactly nonzero incoming or outgoing
-  edge.
-- Incident strength is the sum of incoming and outgoing weights. Fallback degree
-  is unweighted in-degree plus out-degree.
-- The result contains the BOLDSimNet score, node cost (NC), eigenvector-
-  centrality distance (ED), and the node-edit details.
-- Inputs are evaluated in the supplied order.
-
-## Scope
-
-This package starts from precomputed adjacency matrices. Upstream fMRI
-processing, graph estimation, datasets, and study-level analysis are outside
-its scope.
-
 ## Tests
 
 ```bash
