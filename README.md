@@ -1,11 +1,8 @@
 # BOLDSimNet
 
-This repository contains the Python reference implementation of the
-BOLDSimNet graph-comparison score defined by Algorithms 1--4 and Eqs. (3)--(6)
-of the accompanying manuscript.
+This repository provides a Python implementation of BOLDSimNet for comparing
+precomputed, nonnegative, weighted directed brain-network adjacency matrices.
 
-It compares two precomputed, nonnegative, weighted directed adjacency matrices.
-It does not estimate transfer entropy or process fMRI data.
 
 ## Installation
 
