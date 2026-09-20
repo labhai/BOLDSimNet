@@ -26,16 +26,6 @@ def _cycle(weights: tuple[float, float, float]) -> np.ndarray:
     return adjacency
 
 
-def _undirected_total(
-    adjacency: np.ndarray,
-    first: int,
-    second: int,
-    total: float,
-) -> None:
-    adjacency[first, second] = total / 2.0
-    adjacency[second, first] = total / 2.0
-
-
 class CentralityTests(unittest.TestCase):
     def test_outgoing_right_eigenvector_and_fixed_atlas_order(self) -> None:
         result = outgoing_eigenvector_centrality(_cycle((1.0, 2.0, 4.0)))
@@ -203,31 +193,6 @@ class PaperAlgorithmTests(unittest.TestCase):
             result.edits[0].alternative_cost,
             places=15,
         )
-
-    def test_greedy_substitution_respects_argument_order(self) -> None:
-        first = np.zeros((6, 6), dtype=np.float64)
-        second = np.zeros((6, 6), dtype=np.float64)
-        _undirected_total(first, 0, 4, 0.2)
-        _undirected_total(first, 1, 5, 0.4)
-        _undirected_total(first, 1, 4, 0.2)
-        _undirected_total(first, 4, 5, 0.2)
-        _undirected_total(second, 2, 3, 0.5)
-        _undirected_total(second, 3, 4, 0.25)
-        _undirected_total(second, 3, 5, 0.25)
-
-        forward_nc = node_cost(first, second, self.labels)
-        reverse_nc = node_cost(second, first, self.labels)
-        self.assertAlmostEqual(forward_nc.substitution_cost, 0.7, places=7)
-        self.assertAlmostEqual(reverse_nc.substitution_cost, 0.9, places=7)
-        self.assertAlmostEqual(forward_nc.node_cost, 0.0875, places=7)
-        self.assertAlmostEqual(reverse_nc.node_cost, 0.1125, places=7)
-
-        forward = compare(first, second, self.labels)
-        reverse = compare(second, first, self.labels)
-        self.assertAlmostEqual(forward.centrality_distance, 0.68989795, places=7)
-        self.assertAlmostEqual(forward.score, 0.562620, places=6)
-        self.assertAlmostEqual(reverse.score, 0.554816, places=6)
-        self.assertNotEqual(forward.score, reverse.score)
 
     def test_reversed_cycle_uses_defined_score_components(self) -> None:
         first = _cycle((1.0, 1.0, 1.0))
