@@ -1,7 +1,6 @@
 # BOLDSimNet
 
-This repository provides a Python implementation of BOLDSimNet for comparing
-precomputed, nonnegative, weighted directed brain-network adjacency matrices.
+This repository provides a Python implementation of BOLDSimNet.
 
 
 ## Installation
