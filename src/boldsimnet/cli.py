@@ -1,4 +1,4 @@
-"""Command-line interface for the BOLDSimNet reference implementation."""
+"""Command-line interface for BOLDSimNet."""
 
 from __future__ import annotations
 

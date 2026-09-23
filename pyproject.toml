@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "boldsimnet"
 version = "0.1.0"
-description = "Reference implementation of the BOLDSimNet graph-similarity score"
+description = "Python implementation of the BOLDSimNet graph-comparison score"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"

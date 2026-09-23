@@ -1,22 +1,13 @@
-"""Reference implementation of the BOLDSimNet graph comparison.
-
-This module implements Algorithms 1--4 and Eqs. (3)--(6) of the
-accompanying manuscript. Adjacency matrices use ``row=source`` and
-``column=target``. A nonempty graph must have a unique principal right-
-eigenvector direction; otherwise ``UndefinedCentralityError`` is raised. An
-all-zero graph is assigned a zero centrality vector.
-"""
+"""BOLDSimNet graph-comparison implementation."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Sequence
+from typing import Sequence
 
 import numpy as np
 
 EPSILON = 1e-8
-ALGORITHM_SEMANTICS_VERSION = "1.2.0"
-MATRIX_CONVENTION = "row=source, column=target"
 
 
 class UndefinedCentralityError(ValueError):
@@ -138,14 +129,6 @@ class CentralityResult:
         values.setflags(write=False)
         object.__setattr__(self, "values", values)
 
-    def to_dict(self) -> dict[str, Any]:
-        return {
-            "values": self.values.tolist(),
-            "status": self.status,
-            "spectral_radius": self.spectral_radius,
-            "principal_eigenspace_dimension": self.principal_eigenspace_dimension,
-        }
-
 
 def _spectral_diagnostics(adjacency: np.ndarray) -> tuple[float, int, np.ndarray]:
     """Return active-graph Perron diagnostics and a full-atlas vector."""
@@ -167,25 +150,16 @@ def _spectral_diagnostics(adjacency: np.ndarray) -> tuple[float, int, np.ndarray
     operator = scaled - scaled_radius * np.eye(active.size)
     _, singular_values, right_vectors = np.linalg.svd(operator)
     largest_singular = float(singular_values.max(initial=0.0))
+    numerical_floor = float(singular_values[-1])
     tolerance = (
-        np.finfo(np.float64).eps * max(operator.shape) * largest_singular
+        numerical_floor
+        + np.finfo(np.float64).eps * max(operator.shape) * largest_singular
     )
-    rank = int(np.count_nonzero(singular_values > tolerance))
-    multiplicity = active.size - rank
+    multiplicity = int(np.count_nonzero(singular_values <= tolerance))
 
     vector = np.zeros(adjacency.shape[0], dtype=np.float64)
     vector[active] = right_vectors[-1, :]
     return spectral_radius, multiplicity, vector
-
-
-def perron_diagnostics(adjacency: np.ndarray) -> dict[str, float | int]:
-    """Report Eq. (3) uniqueness diagnostics without choosing a vector."""
-    values = _validated_adjacency(adjacency)
-    radius, multiplicity, _ = _spectral_diagnostics(values)
-    return {
-        "spectral_radius": radius,
-        "principal_eigenspace_dimension": multiplicity,
-    }
 
 
 def outgoing_eigenvector_centrality(adjacency: np.ndarray) -> CentralityResult:
@@ -366,15 +340,6 @@ class EditOperation:
     accepted_cost: float
     alternative_cost: float | None
 
-    def to_dict(self) -> dict[str, Any]:
-        return {
-            "operation": self.operation,
-            "graph_origin": self.graph_origin,
-            "node": self.node,
-            "accepted_cost": self.accepted_cost,
-            "alternative_cost": self.alternative_cost,
-        }
-
 
 @dataclass(frozen=True)
 class NodeCostResult:
@@ -390,20 +355,6 @@ class NodeCostResult:
     alignment_to_graph: str
     alignment: tuple[tuple[int, int], ...]
     edits: tuple[EditOperation, ...]
-
-    def to_dict(self) -> dict[str, Any]:
-        return {
-            "node_cost": self.node_cost,
-            "substitution_cost": self.substitution_cost,
-            "equalization_cost": self.equalization_cost,
-            "original_active_nodes_first": self.original_active_nodes_first,
-            "original_active_nodes_second": self.original_active_nodes_second,
-            "final_active_nodes": self.final_active_nodes,
-            "alignment_from_graph": self.alignment_from_graph,
-            "alignment_to_graph": self.alignment_to_graph,
-            "alignment": [list(pair) for pair in self.alignment],
-            "edits": [edit.to_dict() for edit in self.edits],
-        }
 
 
 def node_cost(
@@ -504,17 +455,12 @@ class BOLDSimNetResult:
     centrality_first: CentralityResult
     centrality_second: CentralityResult
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, float | bool]:
         return {
-            "algorithm_semantics_version": ALGORITHM_SEMANTICS_VERSION,
-            "matrix_convention": MATRIX_CONVENTION,
             "ordered": True,
             "score": self.score,
             "node_cost": self.node_cost,
             "centrality_distance": self.centrality_distance,
-            "node_cost_details": self.node_cost_details.to_dict(),
-            "centrality_first": self.centrality_first.to_dict(),
-            "centrality_second": self.centrality_second.to_dict(),
         }
 
 

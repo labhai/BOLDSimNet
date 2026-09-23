@@ -12,7 +12,6 @@ repository-code: https://github.com/labhai/BOLDSimNet
 keywords:
   - brain networks
   - graph similarity
-  - multivariate transfer entropy
 preferred-citation:
   type: article
   title: >-
