@@ -97,4 +97,4 @@ connectivity matrices, neuroimaging datasets, and atlas files are not included.
 
 ## Contact
 
-For implementation questions, open a [GitHub issue](https://github.com/labhai/BOLDSimNet/issues).
+For code or research inquiries, contact [Boseong Kim](mailto:boseong@hanyang.ac.kr).
