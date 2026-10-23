@@ -1,5 +1,3 @@
-"""BOLDSimNet graph-comparison implementation."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass

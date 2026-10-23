@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
+keywords = ["brain-connectivity", "graph-similarity", "fmri", "neuroscience"]
 authors = [
   { name = "Boseong Kim", email = "boseong@hanyang.ac.kr" },
 ]
@@ -34,7 +35,6 @@ boldsimnet = "boldsimnet.cli:main"
 Homepage = "https://github.com/labhai/BOLDSimNet"
 Repository = "https://github.com/labhai/BOLDSimNet"
 Issues = "https://github.com/labhai/BOLDSimNet/issues"
-Preprint = "https://arxiv.org/abs/2504.01274"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

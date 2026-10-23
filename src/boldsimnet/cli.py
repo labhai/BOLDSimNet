@@ -1,5 +1,3 @@
-"""Command-line interface for BOLDSimNet."""
-
 from __future__ import annotations
 
 import argparse
@@ -16,7 +14,6 @@ from .core import compare
 
 
 def _load_adjacency(path: Path) -> np.ndarray:
-    """Load one NumPy adjacency array without permitting pickled objects."""
     try:
         value = np.load(path, allow_pickle=False)
     except FileNotFoundError as exc:
@@ -33,7 +30,6 @@ def _load_adjacency(path: Path) -> np.ndarray:
 
 
 def _load_labels(path: Path) -> tuple[str, ...]:
-    """Read exactly one non-empty functional label per line."""
     try:
         text = path.read_text(encoding="utf-8")
     except FileNotFoundError as exc:
@@ -54,7 +50,6 @@ def _load_labels(path: Path) -> tuple[str, ...]:
 
 
 def _write_json(path: Path, rendered: str) -> None:
-    """Atomically write JSON without creating an implicitly missing directory."""
     if not path.parent.is_dir():
         raise ValueError(f"output directory does not exist: {path.parent}")
 
@@ -131,7 +126,6 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Run the CLI; expected user/input errors return exit status 2."""
     parser = _parser()
     arguments = parser.parse_args(argv)
     try:
@@ -141,5 +135,5 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 2
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":
     raise SystemExit(main())

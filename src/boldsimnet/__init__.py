@@ -1,5 +1,3 @@
-"""BOLDSimNet graph-similarity implementation."""
-
 from .core import (
     BOLDSimNetResult,
     UndefinedCentralityError,
