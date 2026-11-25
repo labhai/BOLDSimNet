@@ -6,7 +6,8 @@
 
 **Boseong Kim · Debashis Das Chakladar · Haejun Chung · Ikbeom Jang**<br>
 Hanyang University · Luleå University of Technology · Hankuk University of Foreign Studies<br>
-Accepted for publication in *Human Brain Mapping* on November 4, 2026.
+
+Human Brain Mapping 2026
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](#quick-start)
 [![NumPy](https://img.shields.io/badge/NumPy-1.26%2B-013243?logo=numpy&logoColor=white)](#quick-start)
