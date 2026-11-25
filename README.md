@@ -5,7 +5,7 @@
 ### Functionally Informed Alignment for Comparing Brain Networks<br>with Multivariate Transfer Entropy
 
 **Boseong Kim · Debashis Das Chakladar · Haejun Chung · Ikbeom Jang**<br>
-Hanyang University · Luleå University of Technology · Hankuk University of Foreign Studies
+Hanyang University · Luleå University of Technology · Hankuk University of Foreign Studies<br>
 Accepted for publication in *Human Brain Mapping* on November 4, 2026.
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](#quick-start)
